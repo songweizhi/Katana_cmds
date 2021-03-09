@@ -3,7 +3,6 @@
 
 # refers to: https://github.com/schneebergerlab/syri
 
-module unload python
 module load python/3.5.7
 mkdir ~/mypython357env
 python3 -m venv --system-site-packages ~/mypython357env

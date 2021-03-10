@@ -43,16 +43,24 @@ makeblastdb -in ssu_all_r95_BLCAparsed.fasta -dbtype nucl -parse_seqids -out ssu
 ###################### on MAC ######################
 
 cd 00_DataNeeded/BLCA/db_GTDB_SSU
+
+# download ssu_all_r95.tar.gz with wget
 wget https://data.gtdb.ecogenomic.org/releases/release95/95.0/genomic_files_all/ssu_all_r95.tar.gz
+# Note: if you don't have wget, you can manually download ssu_all_r95.tar.gz and move it to the db_GTDB_SSU folder. 
+# https://data.gtdb.ecogenomic.org/releases/release95/95.0/genomic_files_all/ssu_all_r95.tar.gz
+
+# decompress ssu_all_r95.tar.gz
 tar xvzf ssu_all_r95.tar.gz
+
+# make the format of ssu_all_r95.fna compatible with BLCA using BioSAK
+# Note: you can install BioSAK with "pip3 install BioSAK"
 BioSAK GTDB_for_BLCA -GTDB_ssu ssu_all_r95.fna
 # output files:
 # ssu_all_r95_BLCAparsed.fasta
 # ssu_all_r95_BLCAparsed.taxonomy
 
+# make blast db
 makeblastdb -in ssu_all_r95_BLCAparsed.fasta -dbtype nucl -parse_seqids -out ssu_all_r95_BLCAparsed.fasta
-
-
 
 
 ##########################################################################################

@@ -7,7 +7,7 @@
 ssh z1234567@katana.restech.unsw.edu.au -o "ServerAliveInterval 10"
 
 # Start an interactive job (running programs on Katana head node is not allowed)
-qsub -I -l nodes=1:ppn=6,mem=60gb,walltime=11:59:00
+qsub -I -l nodes=1:ppn=12,mem=60gb,walltime=11:59:00
 
 # cd to the folder where you want to have BLCA installed, 
 software_folder='/srv/scratch/z5039045/Softwares'

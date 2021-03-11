@@ -3,17 +3,24 @@
 ################################# install BLCA on Katana #################################
 ##########################################################################################
 
-module load python/3.7.3
-mkdir ~/mypython3env
-python3 -m venv --system-site-packages ~/mypython3env
-source ~/mypython3env/bin/activate
-pip3 install --upgrade BioSAK
+# Log into katana
+ssh z1234567@katana.restech.unsw.edu.au -o "ServerAliveInterval 10"
 
-# Download BLCA scripts to Katana (change zID to yours)
-cd /srv/scratch/z5039045/Softwares
+# Start an interactive job (running programs on Katana head node is not allowed)
+qsub -I -l nodes=1:ppn=6,mem=60gb,walltime=11:59:00
+
+# cd to the folder where you want to have BLCA installed, 
+software_folder='/srv/scratch/z5039045/Softwares'
+cd $software_folder
 git clone https://github.com/qunfengdong/BLCA.git
 
 
+# install BioSAK, for db file formatting
+module load python/3.7.3
+mkdir ~/mypython3env_BioSAK
+python3 -m venv --system-site-packages ~/mypython3env_BioSAK
+source ~/mypython3env_BioSAK/bin/activate
+pip3 install --upgrade BioSAK
 
 
 ##########################################################################################
@@ -22,32 +29,37 @@ git clone https://github.com/qunfengdong/BLCA.git
 
 ###################### on Katana ######################
 
-# download GTDB SSU sequences
-cd /srv/scratch/z5039045/Softwares/BLCA/db_GTDB_SSU
-wget https://data.gtdb.ecogenomic.org/releases/release95/95.0/genomic_files_all/ssu_all_r95.tar.gz
+software_folder='/srv/scratch/z5039045/Softwares'
+
+# make a db folder
+cd $software_folder/BLCA
+mkdir db_GTDB_SSU
+cd db_GTDB_SSU
+
+# download ssu_all_r95.tar.gz and upload it to db_GTDB_SSU
+# Here is the link: https://data.gtdb.ecogenomic.org/releases/release95/95.0/genomic_files_all/ssu_all_r95.tar.gz
+
+# decompress ssu_all_r95.tar.gz
 tar xvzf ssu_all_r95.tar.gz
 
 # format downloaded sequences with BioSAK
 module load python/3.7.3
-source ~/mypython3env/bin/activate
+source ~/mypython3env_BioSAK/bin/activate
 BioSAK GTDB_for_BLCA -GTDB_ssu ssu_all_r95.fna
-# output files:
+# output files in this step:
 # ssu_all_r95_BLCAparsed.fasta
 # ssu_all_r95_BLCAparsed.taxonomy
 
 # make blast db with formatted sequences
-module load blast+/2.9.0
+module load blast+/2.11.0
 makeblastdb -in ssu_all_r95_BLCAparsed.fasta -dbtype nucl -parse_seqids -out ssu_all_r95_BLCAparsed.fasta
 
 
 ###################### on MAC ######################
 
-# cd to the folder where you want to store it
 cd 00_DataNeeded/BLCA/db_GTDB_SSU
 
-# download ssu_all_r95.tar.gz with wget
-wget https://data.gtdb.ecogenomic.org/releases/release95/95.0/genomic_files_all/ssu_all_r95.tar.gz
-# Note: if you don't have wget, you can download it manually and move it to "00_DataNeeded/BLCA/db_GTDB_SSU"
+# download ssu_all_r95.tar.gz and move it to 00_DataNeeded/BLCA/db_GTDB_SSU
 # Here is the link: https://data.gtdb.ecogenomic.org/releases/release95/95.0/genomic_files_all/ssu_all_r95.tar.gz
 
 # decompress ssu_all_r95.tar.gz
@@ -70,13 +82,17 @@ makeblastdb -in ssu_all_r95_BLCAparsed.fasta -dbtype nucl -parse_seqids -out ssu
 
 ###################### on Katana ######################
 
-module load python/3.7.3
-source ~/mypython3env_BLCA/bin/activate
-module load blast+/2.9.0
+module load blast+/2.11.0
 module load muscle/3.8.31
 module load clustalo/1.2.4
-cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/BH_ER_050417_Matam16S_wd
-python3 /srv/scratch/z5039045/Softwares/BLCA/2.blca_main.py -r /srv/scratch/z5039045/Softwares/BLCA/db_GTDB_SSU/ssu_all_r95_BLCAparsed.taxonomy -q /srv/scratch/z5039045/Softwares/BLCA/db_GTDB_SSU/ssu_all_r95_BLCAparsed.fasta -i BH_ER_050417_assembled_16S_uclust_0.999.fasta
+
+blca_main_py='/srv/scratch/z5039045/Softwares/BLCA/2.blca_main.py'
+gtdb_ssu_taxon='/srv/scratch/z5039045/Softwares/BLCA/db_GTDB_SSU/ssu_all_r95_BLCAparsed.taxonomy'
+gtdb_ssu_seq='/srv/scratch/z5039045/Softwares/BLCA/db_GTDB_SSU/ssu_all_r95_BLCAparsed.fasta' 
+
+cd /srv/scratch/z5039045/GTDB_SSU_test
+python3 $blca_main_py -r $gtdb_ssu_taxon -q $gtdb_ssu_seq -p 12 -i Cym-zOTUs_subset.fasta
+python3 $blca_main_py -r $gtdb_ssu_taxon -q $gtdb_ssu_seq -p 12 -i BH_ER_050417_assembled_16S_uclust_0.999.fasta
 
 
 ###################### on MAC ######################

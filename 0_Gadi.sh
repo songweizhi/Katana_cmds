@@ -1,5 +1,5 @@
 
-####################################### copy files #######################################
+####################################### copy files to Gadi #######################################
 
 # copy files from Katana to Gadi with its data-mover node
 # refers to section "File Transfer to/from Gadi" from https://opus.nci.org.au/display/Help/0.+Welcome+to+Gadi 
@@ -7,8 +7,8 @@
 # step 1: login to kdm (kdm.restech.unsw.edu.au)
 
 # step 2: copy files to Gadi
-cd /srv/scratch/z5095298/Kelp_coassembly
-scp BH_ER_pairedForward.fastq wzs561@gadi-dm.nci.org.au:/scratch/du5/wzs561/
+scp /srv/scratch/z5095298/BH_ER_R1.fastq wzs561@gadi.nci.org.au:/scratch/du5/wzs561/
+scp /srv/scratch/z5095298/BH_ER_R2.fastq wzs561@gadi.nci.org.au:/scratch/du5/wzs561/
 
 
 ###################################### install BioSAK ####################################

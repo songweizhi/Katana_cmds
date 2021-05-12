@@ -77,3 +77,33 @@ gtdbtk infer --msa_file mag_files_GTDB_r95_tree/gtdbtk.ar122.user_msa.fasta --ou
 # the inferred trees
 mag_files_GTDB_r95_tree/archaeal.unrooted.tree
 mag_files_GTDB_r95_tree/bacterial.unrooted.tree
+
+
+##########################################################################################
+############################# Please ignore all commands below ###########################
+##########################################################################################
+
+module load python/3.7.3
+source ~/mypython3env/bin/activate
+module load perl/5.28.0
+module load prodigal/2.6.3
+module load pplacer/1.1.alpha19
+module load hmmer/3.3
+module load fasttree/2.1.11
+module unload gcc
+module load gcc/6.2.0
+module load gsl/2.6
+module load fastani/1.3
+module unload R
+module load R/3.5.3
+export GTDBTK_DATA_PATH=/data/bio/gtdbtk/release95
+cd /srv/scratch/z5039045/MarkerMAG_wd/CAMI2_HMP
+gtdbtk identify --genome_dir ref_genomes_GI -x fa --out_dir GI_ref_r95_tree --cpus 12
+gtdbtk align --identify_dir GI_ref_r95_tree --out_dir GI_ref_r95_tree --cpus 12
+gtdbtk infer --msa_file GI_ref_r95_tree/gtdbtk.bac120.user_msa.fasta --out_dir GI_ref_r95_tree --cpus 12 --prefix bacterial
+gtdbtk infer --msa_file GI_ref_r95_tree/gtdbtk.ar122.user_msa.fasta --out_dir GI_ref_r95_tree --cpus 12 --prefix archaeal
+
+
+
+
+

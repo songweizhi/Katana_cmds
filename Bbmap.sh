@@ -49,9 +49,6 @@ cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/Kelp_0.999_aa_MarkerMAG_wd/Kelp_0.999
 bbmap.sh ref=BH_ER_050417_assembled_16S_uclust_0.999.fasta in=../../../Kelp_R1.fasta in2=../../../Kelp_R2.fasta outm=test_bbmap_only_mapped_all.sam local=t nodisk threads=6 ambiguous=all
 
 
-
-
-
 module load java/8u121
 module load bbmap/38.51
 cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/Kelp_0.999_aa_MarkerMAG_wd/Kelp_0.999_aa_step_1_wd/bwa_test
@@ -60,11 +57,7 @@ bbmap.sh ref=BH_ER_050417_assembled_16S_uclust_0.999.fasta in=../../../Kelp_R1.f
 bbmap.sh ref=BH_ER_050417_assembled_16S_uclust_0.999.fasta in=../../../Kelp_R1.fasta in2=../../../Kelp_R2.fasta outm=test_bbmap_only_mapped_all.sam local=t nodisk threads=6 ambiguous=all -Xmx20g 2> bbmap_stderr.txt
 
 
-
-
- bbmap.sh in=reads.fq ref=D.fa path=/another/location/
-
-
+bbmap.sh in=reads.fq ref=D.fa path=/another/location/
 
 
 # test out of memory issue
@@ -73,17 +66,29 @@ module load bbmap/38.51
 cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/Kelp_0.999_bbmap_MarkerMAG_wd/Kelp_0.999_bbmap_step_1_wd
 bbmap.sh ref=Kelp_0.999_bbmap_MarkerMAG_wd/Kelp_0.999_bbmap_step_1_wd/BH_ER_050417_refined_bins_db/BH_ER_050417_refined_bins_combined.fa in=Kelp_0.999_bbmap_MarkerMAG_wd/Kelp_0.999_bbmap_step_1_wd/unmapped_paired_reads.fasta outm=Kelp_0.999_bbmap_MarkerMAG_wd/Kelp_0.999_bbmap_step_1_wd/BH_ER_050417_refined_bins_db/BH_ER_050417_refined_bins_combined.sam local=t nodisk=t ambiguous=all sam=1.3 keepnames=t saa=f silent=true threads=1 2> Kelp_0.999_bbmap_MarkerMAG_wd/Kelp_0.999_bbmap_step_1_wd/BH_ER_050417_refined_bins_db/BH_ER_050417_refined_bins_combined_bbmap_stderr.txt
 
-
 cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/Kelp_0.999_bbmap_MarkerMAG_wd.backup2/Kelp_0.999_bbmap_step_1_wd/BH_ER_050417_refined_bins_db
 bbmap.sh ref=BH_ER_050417_refined_bins_combined.fa in=../unmapped_paired_reads.fasta outm=BH_ER_050417_refined_bins_combined.sam local=t nodisk=t ambiguous=all sam=1.3 keepnames=t saa=f silent=true threads=1 
-
-
 
 cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/Kelp_0.999_bbmap_MarkerMAG_wd/Kelp_0.999_bbmap_step_1_wd/BH_ER_050417_refined_bins_db
 bbmap.sh ref=BH_ER_050417_refined_bins_combined.fa in=../unmapped_paired_reads.fasta outm=BH_ER_050417_refined_bins_combined.sam local=t nodisk=t ambiguous=all sam=1.3 keepnames=t saa=f silent=true threads=6
 
 
+module load java/8u201-jdk
+module load bbmap/38.51
+cd /srv/scratch/z5039045/test_bbmap
+bbmap.sh ref=ref.fa in=read.fa outm=test.sam local=t nodisk=t ambiguous=all sam=1.3 keepnames=t saa=f silent=true threads=6
+bbmap.sh ref=CF_refined_bins_combined.fa in=unmapped_paired_reads.fasta outm=test.sam local=t nodisk=t ambiguous=all keepnames=t saa=f trd=t silent=true threads=6 scoretag=t
+bbmap.sh ref=ref.fa in=read.fa outm=test.sam local=t nodisk=t ambiguous=all keepnames=t saa=f trd=t silent=true threads=6 scoretag=t
 
+
+
+module load java/8u121
+module load bbmap/38.51
+cd /srv/scratch/z5039045/MarkerMAG_wd/Kelp/test_bbmap
+
+bbmap.sh ref=Kelp_16S.fasta in=Kelp_R1_subset.fastq in2=Kelp_R2_subset.fastq outm=reads_to_16S_fq.sam local=t nodisk=t ambiguous=all keepnames=t saa=f trd=t silent=true threads=12 -Xmx10g 2> reads_to_16S_fq_bbmap_stderr.txt
+
+bbmap.sh ref=Kelp_16S.fasta in=Kelp_R1_subset.fasta in2=Kelp_R2_subset.fasta outm=reads_to_16S_fa.sam local=t nodisk=t ambiguous=all keepnames=t saa=f trd=t silent=true threads=12 -Xmx10g 2> reads_to_16S_fa_bbmap_stderr.txt
 
 
 

@@ -1,12 +1,10 @@
 
 ####################################### copy files to Gadi #######################################
 
-# copy files from Katana to Gadi with its data-mover node
-# refers to section "File Transfer to/from Gadi" from https://opus.nci.org.au/display/Help/0.+Welcome+to+Gadi 
+# step 1: login to Katana data mover node (kdm.restech.unsw.edu.au)
+ssh z1234567@kdm.restech.unsw.edu.au
 
-# step 1: login to kdm (kdm.restech.unsw.edu.au)
-
-# step 2: copy files to Gadi
+# step 2: copy files to Gadi, you'll need to type the password to login to Gadi
 scp /srv/scratch/z5095298/BH_ER_R1.fastq wzs561@gadi.nci.org.au:/scratch/du5/wzs561/
 scp /srv/scratch/z5095298/BH_ER_R2.fastq wzs561@gadi.nci.org.au:/scratch/du5/wzs561/
 

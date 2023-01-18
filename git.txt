@@ -1,0 +1,16 @@
+  497  HgtSIM
+  498  cd 
+  499  cd 
+  500  cd Commands
+  501  ls
+  502  git init -b main
+  503  git add . && git commit -m "initial commit"
+  504  git remote add origin https://github.com/songweizhi/Katana_cmds.git
+  505  git remote -v
+  506  git push -u origin main
+  507  git remote set-url origin https://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@github.com/songweizhi/Katana_cmds
+  508  git push -u origin main
+  509  git push -u origin main
+  510  git push -u origin main
+  511  git push -u origin main
+  512  history

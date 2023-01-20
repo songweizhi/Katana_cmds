@@ -4,6 +4,15 @@
 module load perl/5.28.0
 module load edirect/10.9.20190304
 
+# Genbank id --> taxon id (for one ID)
+esummary -db nuccore -id BA000012.4 | xtract -pattern DocumentSummary -element Caption,TaxId
+esummary -db protein -id CAB1096347.1 | xtract -pattern DocumentSummary -element Caption,TaxId
+
+# Genbank id --> taxon id (for multiple IDs)
+cat assembly_blastn_best_hits_ref_id.tab | epost -db nuccore | esummary | xtract -pattern DocumentSummary -element Caption,TaxId > assembly_blastn_best_hits_ref_id_to_taxon_id.txt
+cat assembly_blastn_best_hits_ref_id_sorted_uniq.tab | epost -db protein | esummary | xtract -pattern DocumentSummary -element Caption,TaxId > assembly_blastn_best_hits_ref_id_to_taxon_id.txt
+cat rd2_Cluster.24_vs_nt_BestHit_uniq.txt | epost -db nuccore | esummary | xtract -pattern DocumentSummary -element Caption,TaxId > rd2_Cluster.24_vs_nt_BestHit_ref_id_to_taxon_id.txt
+
 
 ##########################################################################################
 

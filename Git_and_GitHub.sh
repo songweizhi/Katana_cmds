@@ -14,12 +14,13 @@ https://guides.github.com/features/mastering-markdown/#what
 
 # cd to the folder holds your project codes on your computer
 cd /Users/songweizhi/PycharmProjects/Adaptive_Nanopore
+cd /Users/songweizhi/Katana_cmds
 git init
 git add .
 echo '.idea' >> .gitignore
 git rm -r --cached .idea
 git add .gitignore
-git commit -m -
+git commit -m "-"
 
 #git pull origin master 
 
@@ -71,7 +72,9 @@ git push -u Sponge_Hologenome master
 git remote add Adaptive_Nanopore_Scripts https://github.com/songweizhi/Adaptive_Nanopore_Scripts.git
 git push -u Adaptive_Nanopore_Scripts master
 
-
+# Katana_cmds
+git remote add Katana_cmds https://github.com/songweizhi/Katana_cmds.git
+git push -u Katana_cmds master
 
 
 ####################################### Wiki pages #######################################
